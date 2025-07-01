@@ -2,7 +2,7 @@
 FROM maven:3.9.6-eclipse-temurin-21 AS builder
 
 # Argumento do repositório Git
-ARG GIT_REPO=https://github.com/MrAbaddy/SistemaMotoTech.git
+ARG GIT_REPO=https://github.com/MrAbaddy/ProjetoPooW1
 
 # Clona o projeto
 RUN git clone $GIT_REPO /app
