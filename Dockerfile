@@ -14,7 +14,7 @@ WORKDIR /app
 RUN mvn clean package -DskipTests
 
 # Etapa de runtime com WildFly
-FROM quay.io/wildfly/wildfly:36.0.0.Final
+FROM jboss/wildfly:latest
 
 # Diretório onde o WildFly espera o .war (deployment automático)
 COPY --from=builder /app/target/Mototech-1.0-SNAPSHOT.war /opt/jboss/wildfly/standalone/deployments/app.war
