@@ -17,7 +17,7 @@ RUN mvn clean package -DskipTests
 FROM jboss/wildfly:latest
 
 # Copia o .war gerado para o diretório de deploy do WildFly, renomeando para mototech.war (contexto /mototech)
-COPY --from=builder /app/target/Mototech-1.0-SNAPSHOT.war /opt/jboss/wildfly/standalone/deployments/mototech.war
+COPY --from=builder /app/target/Mototech-1.0-SNAPSHOT.war /opt/jboss/wildfly/standalone/deployments/ROOT.war
 
 # Cria diretório de logs e torna volume
 RUN mkdir -p /opt/jboss/wildfly/standalone/log && \

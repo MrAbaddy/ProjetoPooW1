@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/dashboard")
+@WebServlet("/dashbord")
 public class DashbordServlet extends HttpServlet {
 
     @Override
