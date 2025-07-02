@@ -1,7 +1,3 @@
--- Criação do schema público
-CREATE SCHEMA public;
-
--- Tabela funcionario
 CREATE TABLE public.funcionario (
                                     id SERIAL PRIMARY KEY,
                                     nome VARCHAR(100) NOT NULL,
@@ -9,7 +5,6 @@ CREATE TABLE public.funcionario (
                                     cargo VARCHAR(50) NOT NULL
 );
 
--- Tabela nota_servico
 CREATE TABLE public.nota_servico (
                                      id SERIAL PRIMARY KEY,
                                      cliente VARCHAR(150) NOT NULL,
@@ -21,14 +16,12 @@ CREATE TABLE public.nota_servico (
                                      situacao VARCHAR(50) NOT NULL
 );
 
--- Tabela usuario
+
 CREATE TABLE public.usuario (
                                 id SERIAL PRIMARY KEY,
                                 email VARCHAR(100) NOT NULL UNIQUE,
                                 senha VARCHAR(255) NOT NULL
 );
-
--- Inserções iniciais
 
 INSERT INTO public.funcionario (nome, cnh, cargo) VALUES
     ('João Silva', 'ABC12345', 'Mecanico');
