@@ -1,32 +1,32 @@
 -- Criação do schema público
-CREATE SCHEMA IF NOT EXISTS public;
+CREATE SCHEMA public;
 
 -- Tabela funcionario
-CREATE TABLE IF NOT EXISTS public.funcionario (
-                                                  id SERIAL PRIMARY KEY,
-                                                  nome VARCHAR(100) NOT NULL,
-    cnh VARCHAR(20) NOT NULL,
-    cargo VARCHAR(50) NOT NULL
-    );
+CREATE TABLE public.funcionario (
+                                    id SERIAL PRIMARY KEY,
+                                    nome VARCHAR(100) NOT NULL,
+                                    cnh VARCHAR(20) NOT NULL,
+                                    cargo VARCHAR(50) NOT NULL
+);
 
 -- Tabela nota_servico
-CREATE TABLE IF NOT EXISTS public.nota_servico (
-                                                   id SERIAL PRIMARY KEY,
-                                                   cliente VARCHAR(150) NOT NULL,
-    moto VARCHAR(100) NOT NULL,
-    cilindradas INTEGER,
-    descricao TEXT NOT NULL,
-    material VARCHAR(150),
-    funcionario_id INTEGER NOT NULL REFERENCES public.funcionario(id),
-    situacao VARCHAR(50) NOT NULL
-    );
+CREATE TABLE public.nota_servico (
+                                     id SERIAL PRIMARY KEY,
+                                     cliente VARCHAR(150) NOT NULL,
+                                     moto VARCHAR(100) NOT NULL,
+                                     cilindradas INTEGER,
+                                     descricao TEXT NOT NULL,
+                                     material VARCHAR(150),
+                                     funcionario_id INTEGER NOT NULL REFERENCES public.funcionario(id),
+                                     situacao VARCHAR(50) NOT NULL
+);
 
 -- Tabela usuario
-CREATE TABLE IF NOT EXISTS public.usuario (
-                                              id SERIAL PRIMARY KEY,
-                                              email VARCHAR(100) NOT NULL UNIQUE,
-    senha VARCHAR(255) NOT NULL
-    );
+CREATE TABLE public.usuario (
+                                id SERIAL PRIMARY KEY,
+                                email VARCHAR(100) NOT NULL UNIQUE,
+                                senha VARCHAR(255) NOT NULL
+);
 
 -- Inserções iniciais
 
