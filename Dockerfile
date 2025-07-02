@@ -8,7 +8,7 @@ WORKDIR /app
 
 RUN mvn clean package -DskipTests
 
-FROM jboss/wildfly:latest
+FROM quay.io/wildfly/wildfly
 
 COPY --from=builder /app/target/Mototech-1.0-SNAPSHOT.war /opt/jboss/wildfly/standalone/deployments/app.war
 
