@@ -8,7 +8,7 @@ public class ConexaoDB {
 
     // Constantes de configuração do banco de dados
     private static final String DRIVER = "org.postgresql.Driver";
-    private static final String URL = "jdbc:postgresql://localhost:5432/mototech";
+    private static final String URL = "jdbc:postgresql://postgres:5432/mototech";
     private static final String USER = "postgres";
     private static final String SENHA = "1234";
 

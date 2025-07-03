@@ -1,8 +1,6 @@
 FROM maven:3.9.6-eclipse-temurin-21 AS builder
 
-ARG GIT_REPO=https://github.com/MrAbaddy/ProjetoPooW1
-
-RUN git clone $GIT_REPO /app
+COPY . ./app
 
 WORKDIR /app
 
