@@ -2,14 +2,20 @@ package br.mototech.oficina.service;
 
 import br.mototech.oficina.dao.FuncionarioDAO;
 import br.mototech.oficina.model.Funcionario;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.List;
 
+@Service
 public class FuncionarioService {
 
-    private static final FuncionarioDAO dao = new FuncionarioDAO();
+    private final FuncionarioDAO dao;
 
-    public ArrayList<Funcionario> listar() {
+    public FuncionarioService(FuncionarioDAO dao) {
+        this.dao = dao;
+    }
+
+    public List<Funcionario> listar() {
         return dao.listar();
     }
 
@@ -32,5 +38,4 @@ public class FuncionarioService {
             return "Erro ao excluir funcionário.";
         }
     }
-
 }

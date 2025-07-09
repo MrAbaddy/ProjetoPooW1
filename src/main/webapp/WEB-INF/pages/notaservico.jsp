@@ -2,7 +2,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page isELIgnored="false" %>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -48,6 +47,12 @@
 
         .nav-link, .user-info span {
             color: #fff !important;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .nav-link:hover {
+            color: #b8860b !important;
         }
 
         .user-info {
@@ -111,10 +116,9 @@
 </head>
 <body>
 
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg shadow-sm fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="<%= request.getContextPath() %>/dashboard">MotoTech Motos</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/dashboard">MotoTech Motos</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
             <span class="navbar-toggler-icon"></span>
@@ -122,63 +126,62 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/Mototech-1.0-SNAPSHOT/usuario">Usuários</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/usuario">Usuários</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Mototech-1.0-SNAPSHOT/funcionario">Funcionários</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/funcionario">Funcionários</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Mototech-1.0-SNAPSHOT/notaservico">Serviços</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/notaservico">Serviços</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/painel-mecanico">Painel do Mecânico</a>
                 </li>
             </ul>
             <div class="user-info ms-auto" role="navigation" aria-label="Informações do usuário">
-                <a href="/Mototech-1.0-SNAPSHOT/" class="btn btn-danger btn-sm ms-3"
+                <span>Bem-vindo, <strong>${usuarioLogado.email}</strong></span>
+                <a href="${pageContext.request.contextPath}/logout" class="btn btn-danger btn-sm ms-3"
                    aria-label="Sair do sistema">Sair</a>
             </div>
         </div>
     </div>
 </nav>
 
-<!-- Conteúdo principal -->
 <main>
     <h1 class="mb-4">${notaEditar != null ? 'Editar Nota de Serviço' : 'Cadastro de Notas de Serviço'}</h1>
 
-    <form action="notaservico" method="post" class="mb-5">
+    <form action="${pageContext.request.contextPath}/notaservico" method="post" class="mb-5">
         <c:if test="${notaEditar != null}">
             <input type="hidden" name="id" value="${notaEditar.id}"/>
         </c:if>
 
         <div class="mb-3">
             <label for="cliente" class="form-label">Cliente</label>
-            <input type="text" id="cliente" name="cliente" placeholder="Nome do Cliente"
-                   class="form-control"
+            <input type="text" id="cliente" name="cliente" placeholder="Nome do Cliente" class="form-control"
                    value="${notaEditar != null ? notaEditar.cliente : ''}" required>
         </div>
 
         <div class="mb-3">
             <label for="moto" class="form-label">Moto</label>
-            <input type="text" id="moto" name="moto" placeholder="Modelo da Moto"
-                   class="form-control"
+            <input type="text" id="moto" name="moto" placeholder="Modelo da Moto" class="form-control"
                    value="${notaEditar != null ? notaEditar.moto : ''}" required>
         </div>
 
         <div class="mb-3">
             <label for="cilindradas" class="form-label">Cilindradas</label>
-            <input type="number" id="cilindradas" name="cilindradas" placeholder="Cilindradas"
-                   class="form-control"
+            <input type="number" id="cilindradas" name="cilindradas" placeholder="Cilindradas" class="form-control"
                    value="${notaEditar != null ? notaEditar.cilindradas : ''}" min="0" required>
         </div>
 
         <div class="mb-3">
             <label for="descricao" class="form-label">Descrição</label>
-            <textarea id="descricao" name="descricao" rows="3" placeholder="Descrição do serviço"
-                      class="form-control" required>${notaEditar != null ? notaEditar.descricao : ''}</textarea>
+            <textarea id="descricao" name="descricao" rows="3" placeholder="Descrição do serviço" class="form-control"
+                      required>${notaEditar != null ? notaEditar.descricao : ''}</textarea>
         </div>
 
         <div class="mb-3">
             <label for="material" class="form-label">Material</label>
-            <input type="text" id="material" name="material" placeholder="Material utilizado"
-                   class="form-control"
+            <input type="text" id="material" name="material" placeholder="Material utilizado" class="form-control"
                    value="${notaEditar != null ? notaEditar.material : ''}">
         </div>
 
@@ -201,17 +204,9 @@
             <label for="situacao" class="form-label">Situação</label>
             <select id="situacao" name="situacao" class="form-select" required>
                 <option value="">Selecione a situação</option>
-                <option value="Aberto"
-                        <c:if test="${notaEditar != null && notaEditar.situacao == 'Aberto'}">selected</c:if>>Aberto
-                </option>
-                <option value="Em Andamento"
-                        <c:if test="${notaEditar != null && notaEditar.situacao == 'Em Andamento'}">selected</c:if>>Em
-                    Andamento
-                </option>
-                <option value="Finalizado"
-                        <c:if test="${notaEditar != null && notaEditar.situacao == 'Finalizado'}">selected</c:if>>
-                    Finalizado
-                </option>
+                <option value="Aberto" <c:if test="${notaEditar != null && notaEditar.situacao == 'Aberto'}">selected</c:if>>Aberto</option>
+                <option value="Em Andamento" <c:if test="${notaEditar != null && notaEditar.situacao == 'Em Andamento'}">selected</c:if>>Em Andamento</option>
+                <option value="Finalizado" <c:if test="${notaEditar != null && notaEditar.situacao == 'Finalizado'}">selected</c:if>>Finalizado</option>
             </select>
         </div>
 
@@ -248,20 +243,14 @@
                 <td>${nota.material}</td>
                 <td>${nota.funcionario != null ? nota.funcionario.nome : ''}</td>
                 <td>${nota.situacao}</td>
-                <td>
-                    <a href="notaservico?opcao=editar&&info=${nota.id}" class="btn btn-sm btn-warning">Editar</a>
-                </td>
-                <td>
-                    <a href="notaservico?opcao=excluir&&info=${nota.id}" class="btn btn-sm btn-danger">Excluir</a>
-                </td>
+                <td><a href="${pageContext.request.contextPath}/notaservico?opcao=editar&&info=${nota.id}" class="btn btn-sm btn-warning">Editar</a></td>
+                <td><a href="${pageContext.request.contextPath}/notaservico?opcao=excluir&&info=${nota.id}" class="btn btn-sm btn-danger">Excluir</a></td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-
 </main>
 
-<!-- Rodapé -->
 <footer>
     MotoTech — há 25 anos cuidando da sua Moto | Telefone e WhatsApp: (55) 99939-6619
 </footer>

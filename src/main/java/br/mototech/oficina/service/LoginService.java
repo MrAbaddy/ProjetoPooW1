@@ -2,10 +2,16 @@ package br.mototech.oficina.service;
 
 import br.mototech.oficina.dao.UsuarioDAO;
 import br.mototech.oficina.model.Usuario;
+import org.springframework.stereotype.Service;
 
+@Service
 public class LoginService {
 
-    private UsuarioDAO dao = new UsuarioDAO();
+    private final UsuarioDAO dao;
+
+    public LoginService(UsuarioDAO dao) {
+        this.dao = dao;
+    }
 
     public Usuario autenticar(String email, String senha) {
         Usuario usuario = dao.buscar(email);
@@ -16,7 +22,6 @@ public class LoginService {
 
         return null;
     }
-
 
     public boolean autenticarLoginSimples(String email, String senha) {
         return autenticar(email, senha) != null;

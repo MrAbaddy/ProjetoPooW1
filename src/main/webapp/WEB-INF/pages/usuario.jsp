@@ -47,6 +47,12 @@
 
         .nav-link, .user-info span {
             color: #fff !important;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .nav-link:hover {
+            color: #b8860b !important;
         }
 
         .user-info {
@@ -110,10 +116,9 @@
 </head>
 <body>
 
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg shadow-sm fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="<%= request.getContextPath() %>/dashboard">MotoTech Motos</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/dashboard">MotoTech Motos</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
             <span class="navbar-toggler-icon"></span>
@@ -121,29 +126,31 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/Mototech-1.0-SNAPSHOT/usuario">Usuários</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/usuario">Usuários</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Mototech-1.0-SNAPSHOT/funcionario">Funcionários</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/funcionario">Funcionários</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Mototech-1.0-SNAPSHOT/notaservico">Serviços</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/notaservico">Serviços</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/painel-mecanico">Painel do Mecânico</a>
                 </li>
             </ul>
             <div class="user-info ms-auto" role="navigation" aria-label="Informações do usuário">
-                <span>Bem-vindo, <strong></strong></span>
-                <a href="/Mototech-1.0-SNAPSHOT/" class="btn btn-danger btn-sm ms-3"
+                <span>Bem-vindo, <strong>${usuarioLogado.email}</strong></span>
+                <a href="${pageContext.request.contextPath}/logout" class="btn btn-danger btn-sm ms-3"
                    aria-label="Sair do sistema">Sair</a>
             </div>
         </div>
     </div>
 </nav>
 
-<!-- Conteúdo principal -->
 <main>
     <h1 class="mb-4">${usuarioEditar != null ? 'Editar Usuário' : 'Cadastro de Usuários'}</h1>
 
-    <form action="usuario" method="post" class="mb-5">
+    <form action="${pageContext.request.contextPath}/usuario" method="post" class="mb-5">
         <c:if test="${usuarioEditar != null}">
             <input type="hidden" name="id" value="${usuarioEditar.id}"/>
         </c:if>
@@ -184,8 +191,8 @@
             <tr>
                 <td>${usuario.email}</td>
                 <td>
-                    <a href="usuario?opcao=editar&&info=${usuario.id}" class="btn btn-sm btn-warning">Editar</a>
-                    <a href="usuario?opcao=excluir&&info=${usuario.id}" class="btn btn-sm btn-danger ms-1">Excluir</a>
+                    <a href="${pageContext.request.contextPath}/usuario?opcao=editar&&info=${usuario.id}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="${pageContext.request.contextPath}/usuario?opcao=excluir&&info=${usuario.id}" class="btn btn-sm btn-danger ms-1">Excluir</a>
                 </td>
             </tr>
         </c:forEach>
@@ -193,7 +200,6 @@
     </table>
 </main>
 
-<!-- Rodapé -->
 <footer>
     MotoTech — há 25 anos cuidando da sua Moto | Telefone e WhatsApp: (55) 99939-6619
 </footer>

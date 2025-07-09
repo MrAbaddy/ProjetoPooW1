@@ -2,27 +2,28 @@ package br.mototech.oficina.service;
 
 import br.mototech.oficina.dao.UsuarioDAO;
 import br.mototech.oficina.model.Usuario;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.List;
 
+@Service
 public class UsuarioService {
 
-    private static UsuarioDAO dao = new UsuarioDAO();
+    private final UsuarioDAO dao;
+
+    public UsuarioService(UsuarioDAO dao) {
+        this.dao = dao;
+    }
 
     public String excluir(int id) {
-
         if (dao.excluir(id)) {
             return "Sucesso ao excluir usuario";
         } else {
             return "Erro ao excluir usuario";
         }
-
     }
 
-    public ArrayList<Usuario> listar() {
-
-        //o usuário q está solicitando
-        // a requisição pode acessar essa lista?
+    public List<Usuario> listar() {
         return dao.listar();
     }
 

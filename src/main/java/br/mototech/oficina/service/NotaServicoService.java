@@ -4,15 +4,22 @@ import br.mototech.oficina.dao.FuncionarioDAO;
 import br.mototech.oficina.dao.NotaServicoDAO;
 import br.mototech.oficina.model.Funcionario;
 import br.mototech.oficina.model.NotaServico;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.List;
 
+@Service
 public class NotaServicoService {
 
-    private NotaServicoDAO dao = new NotaServicoDAO();
-    private FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    private final NotaServicoDAO dao;
+    private final FuncionarioDAO funcionarioDAO;
 
-    public ArrayList<NotaServico> listar() {
+    public NotaServicoService(NotaServicoDAO dao, FuncionarioDAO funcionarioDAO) {
+        this.dao = dao;
+        this.funcionarioDAO = funcionarioDAO;
+    }
+
+    public List<NotaServico> listar() {
         return dao.listar();
     }
 

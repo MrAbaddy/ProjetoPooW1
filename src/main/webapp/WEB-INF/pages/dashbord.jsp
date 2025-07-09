@@ -3,12 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
-    // Verifica se há usuário na sessão
+
     Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
     if (usuario == null) {
         response.sendRedirect("index.jsp");
         return;
     }
+
+    int funcionarioId = 1;
 %>
 
 <!DOCTYPE html>
@@ -23,7 +25,7 @@
             flex-direction: column;
             min-height: 100vh;
             margin: 0;
-            background-color: #000080; /* azul marinho escuro */
+            background-color: #000080;
             color: #fff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
@@ -40,6 +42,17 @@
             font-weight: 700;
             color: #fff !important;
             font-size: 1.8rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff !important;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-left: 1rem;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #b8860b !important;
         }
 
         .user-info {
@@ -64,11 +77,11 @@
             display: flex;
             justify-content: center;
             gap: 2rem;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
         }
 
         .btn-group-custom .btn {
-            min-width: 200px;
+            width: 200px;
             padding: 1.5rem 2rem;
             font-size: 1.3rem;
             color: #fff;
@@ -76,19 +89,13 @@
             border-radius: 8px;
             border: none;
             transition: transform 0.2s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            cursor: pointer;
         }
 
-        .btn-verde {
-            background-color: #28a745;
-        }
-
-        .btn-amarelo {
-            background-color: #b8860b;
-        }
-
-        .btn-vermelho {
-            background-color: #dc3545;
-        }
+        .btn-verde { background-color: #28a745; }
+        .btn-amarelo { background-color: #b8860b; }
+        .btn-vermelho { background-color: #dc3545; }
+        .btn-roxo { background-color: #6f42c1; }
 
         .btn-verde:hover {
             background-color: #fff;
@@ -103,6 +110,11 @@
         .btn-vermelho:hover {
             background-color: #fff;
             color: #dc3545;
+        }
+
+        .btn-roxo:hover {
+            background-color: #5a379b;
+            color: #fff;
         }
 
         .btn-group-custom .btn:hover {
@@ -127,13 +139,26 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg shadow-sm">
     <div class="container">
-        <a class="navbar-brand" href="<%= request.getContextPath() %>/dashboard">MotoTech Motos</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/dashboard">MotoTech Motos</a>
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/usuario">Usuários</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/funcionario">Funcionários</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/notaservico">Serviços</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/painel-mecanico">Painel do Mecânico</a>
+            </li>
+        </ul>
 
         <div class="user-info ms-auto">
             <span>Bem-vindo, <strong><%= usuario.getEmail() %></strong></span>
-
-            <!-- Botão Sair -->
-            <a href="<%= request.getContextPath() %>/logout"
+            <a href="${pageContext.request.contextPath}/logout"
                class="btn btn-danger btn-sm ms-3"
                role="button"
                aria-label="Sair do sistema">Sair</a>
@@ -144,9 +169,10 @@
 <!-- Conteúdo principal -->
 <main>
     <div class="btn-group-custom">
-        <a href="<c:url value='/usuario' />" class="btn btn-verde">Cadastrar Usuários</a>
-        <a href="<c:url value='/funcionario' />" class="btn btn-amarelo">Funcionários</a>
-        <a href="<c:url value='/notaservico' />" class="btn btn-vermelho">Serviços</a>
+        <a href="${pageContext.request.contextPath}/usuario" class="btn btn-verde">Cadastrar Usuários</a>
+        <a href="${pageContext.request.contextPath}/funcionario" class="btn btn-amarelo">Funcionários</a>
+        <a href="${pageContext.request.contextPath}/notaservico" class="btn btn-vermelho">Serviços</a>
+        <a href="${pageContext.request.contextPath}/painel-mecanico" class="btn btn-roxo">Painel do mecânico</a>
     </div>
 </main>
 
