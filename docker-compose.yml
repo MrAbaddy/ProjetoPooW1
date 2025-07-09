@@ -1,0 +1,31 @@
+
+services:
+  wildfly:
+    build: ./docker
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./logs:/opt/jboss/wildfly/standalone/log
+    depends_on:
+      - postgres
+    networks:
+      - appnet
+
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: Mototech
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - appnet
+
+volumes:
+  pgdata:
+  logs:
+
+networks:
+  appnet:
+    driver: bridge
