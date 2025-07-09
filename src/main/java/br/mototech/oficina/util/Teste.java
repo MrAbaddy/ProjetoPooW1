@@ -6,8 +6,7 @@ import br.mototech.oficina.dao.UsuarioDAO;
 
 public class Teste {
 }
-    //inserir funcionário
-    /*
+/*
     public static void main(String[] args) {
 
         FuncionarioService service = new FuncionarioService();

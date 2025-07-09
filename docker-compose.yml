@@ -1,31 +1,36 @@
+version: '3.8'
 
 services:
-  wildfly:
-    build: ./docker
+  postgres:
+    image: postgres:17
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: mototech
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
     ports:
-      - "8080:8080"
+      - "5432:5432"
     volumes:
-      - ./logs:/opt/jboss/wildfly/standalone/log
-    depends_on:
-      - postgres
+      - pgdata:/var/lib/postgresql/data
+      - ./db-init:/docker-entrypoint-initdb.d
     networks:
       - appnet
 
-  postgres:
-    image: postgres:14
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: Mototech
+  wildfly-app:
+    build: .
+    container_name: wildfly-app
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - wildfly-logs:/opt/jboss/wildfly/standalone/log
     networks:
       - appnet
 
 volumes:
   pgdata:
-  logs:
+  wildfly-logs:
 
 networks:
   appnet:
-    driver: bridge
