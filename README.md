@@ -19,4 +19,4 @@ Sistema de gerenciamento de ordens de serviço, motocicletas e funcionários, de
 ## 💻 Como rodar o projeto
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/SistemaMotoTech.git
+   https://github.com/MrAbaddy/ProjetoPooW1.git
